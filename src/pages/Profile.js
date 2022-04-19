@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
+import Header from '../components/Header';
 // import propTypes from 'prop-types';
 
-class Album extends Component {
+class Profile extends Component {
   render() {
     return (
-      <div data-testid="page-album">
-        <p>Component Album</p>
+      <div data-testid="page-profile">
+        <Header />
+        <p>Component Profile</p>
       </div>
     );
   }
@@ -15,4 +17,4 @@ class Album extends Component {
 //   children: PropTypes.string.isRequired,
 // };
 
-export default Album;
+export default Profile;

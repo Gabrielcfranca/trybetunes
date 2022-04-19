@@ -1,62 +1,65 @@
 import React from 'react';
-import Album from './components/Album';
-import Favorites from './components/Favorites';
-import Login from './components/Login';
-import NotFound from './components/NotFound';
-import Profile from './components/Profile';
-import ProfileEdit from './components/ProfileEdit';
-import Search from './components/Search';
+import { Route, Switch } from 'react-router-dom';
+import Album from './pages/Album';
+import Favorites from './pages/Favorites';
+import Login from './pages/Login';
+import NotFound from './pages/NotFound';
+import Profile from './pages/Profile';
+import ProfileEdit from './pages/ProfileEdit';
+import Search from './pages/Search';
 
 class App extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      isDisableButton: true,
-      loginButton: false,
-      loginNameInput: '',
-    };
-  }
-
-  onInputChange = ({ target }) => {
-    const { name, value } = target;
-    console.log(name, value);
-    this.setState({
-      [name]: value,
-    }, () => { this.loginButtonOn(); });
-  };
-
-  loginButtonOn = () => {
-    const {
-      loginNameInput,
-    } = this.state;
-    const valueMinInput = 3;
-    console.log(loginNameInput);
-    if (loginNameInput.length >= valueMinInput) {
-      this.setState({
-        isDisableButton: false,
-      });
-    } else {
-      this.setState({
-        isDisableButton: true,
-      });
-    }
-  }
+  // searchButtonOn = () => {
+  //   const {
+  //     searchArtist,
+  //   } = this.state;
+  //   const valueMinSearch = 2;
+  //   if (searchArtist.length >= valueMinSearch) {
+  //     this.setState({
+  //       isDisableButton: false,
+  //     });
+  //   } else {
+  //     this.setState({
+  //       isDisableButton: true,
+  //     });
+  //   }
+  // }
 
   render() {
+    // const { loading } = this.state;
     return (
       <main>
-        <Login
-          { ...this.state }
-          // isDisableButton={ this.isDisableButton }
-          loginButton={ this.loginButton }
-          onInputChange={ this.onInputChange }
-        />
-        <Search />
-        <Album />
-        <Favorites />
-        <Profile />
-        <ProfileEdit />
-        <NotFound />
+        <div>Trybe Tunes</div>
+        <Switch>
+          <Route
+            path="/"
+            exact
+            render={ (props) => (<Login
+              { ...props }
+              { ...this.state }
+              // loginButton={ this.loginButton }
+              onInputChange={ this.onInputChange }
+              // loading={ loading }
+              // getAPI={ this.getAPI }
+            />) }
+          />
+          <Route
+            path="/search"
+            render={ (props) => (<Search
+              { ...props }
+              { ...this.state }
+              // loginButton={ this.loginButton }
+              // onInputChange={ this.onInputChange }
+              // loading={ loading }
+              // getAPI={ this.getAPI }
+            />) }
+          />
+          <Route path="/album/:id" component={ Album } />
+          <Route path="/favorites" component={ Favorites } />
+          <Route exact path="/profile/edit" component={ ProfileEdit } />
+          <Route path="/profile" component={ Profile } />
+          <Route path="" component={ NotFound } />
+        </Switch>
       </main>
     );
   }
