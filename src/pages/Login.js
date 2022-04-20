@@ -8,7 +8,6 @@ class Login extends Component {
     super();
 
     this.state = {
-      // isDisableButton: true,
       loginNameInput: '',
       loading: false,
     };
