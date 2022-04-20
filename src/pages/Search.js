@@ -72,7 +72,7 @@ class Search extends Component {
           </form>
         </main>
         <div>
-          { loading && <Loading /> }
+          {/* { loading && <Loading /> } */}
           <h2>{ `Resultado de álbuns de: ${searched}` }</h2>
           <section>
             {albuns.length < 1 ? 'Nenhum álbum foi encontrado'
