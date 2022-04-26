@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-// import PropTypes from 'prop-types';
 import Header from '../components/Header';
-// import Loading from '../components/Loading';
+import Loading from '../components/Loading';
 import searchAlbumsAPI from '../services/searchAlbumsAPI';
 
 class Search extends Component {
@@ -11,7 +10,7 @@ class Search extends Component {
 
     this.state = {
       searchArtist: '',
-      // loading: false,
+      loading: false,
       searched: '',
       albuns: [],
     };
@@ -26,13 +25,14 @@ class Search extends Component {
   async callAPI() {
     const { searchArtist } = this.state;
     this.setState({
-      // loading: true,
+      loading: true,
     }, async () => {
       const data = await searchAlbumsAPI(searchArtist);
       this.setState((prevState) => ({
         searchArtist: '',
         searched: prevState.searchArtist,
         albuns: data,
+        loading: false,
       }));
     });
   }
@@ -40,7 +40,7 @@ class Search extends Component {
   render() {
     const {
       searchArtist,
-      // loading,
+      loading,
       searched,
       albuns,
     } = this.state;
@@ -72,7 +72,7 @@ class Search extends Component {
           </form>
         </main>
         <div>
-          {/* { loading && <Loading /> } */}
+          { loading && <Loading /> }
           <h2>{ `Resultado de álbuns de: ${searched}` }</h2>
           <section>
             {albuns.length < 1 ? 'Nenhum álbum foi encontrado'
