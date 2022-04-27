@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import Header from '../components/Header';
 import getMusics from '../services/musicsAPI';
 import MusicCard from '../components/MusicCard';
+import Loading from '../components/Loading';
+import { getFavoriteSongs } from '../services/favoriteSongsAPI';
 
 class Album extends Component {
   constructor() {
@@ -11,14 +13,35 @@ class Album extends Component {
       album: [],
       artistName: '',
       collectionName: '',
-      // favorites: [],
+      favoriteMusics: [],
     };
   }
 
   async componentDidMount() {
     // chama a função callApi assim que abre a página
     await this.callApi2();
+    // await this.getFavoritemusics();
+    this.state = {
+      loading: true,
+    };
+    const favoriteMusicsGet = await getFavoriteSongs();
+    this.setState({
+      favoriteMusics: favoriteMusicsGet,
+      loading: false,
+    });
   }
+
+  // getFavoritemusics = async () => {
+  //   this.state = {
+  //     loading: true,
+  //   };
+  //   const favoriteMusicsGet = await getFavoriteSongs();
+  //   this.setState({
+  //     favoriteMusics: favoriteMusicsGet,
+  //     loading: false,
+  //   });
+  //   console.log(favoriteMusics);
+  // }
 
   async callApi2() {
     // log da props que chega via route do arquivo app
@@ -46,24 +69,30 @@ class Album extends Component {
       album,
       artistName,
       collectionName,
+      favoriteMusics,
+      loading,
     } = this.state;
-    console.log(album, 'log do album no render');
+    // console.log(album, 'log do album no render');
 
     return (
       <div data-testid="page-album">
+        {
+          loading && <Loading />
+        }
         <Header />
         <p>Component Album</p>
         {/* criar um map para renderizar o que foi solicitado no requisito na tela */}
         <p data-testid="artist-name">{`${artistName}`}</p>
         <p data-testid="album-name">{`${collectionName}`}</p>
-        {album.slice(1).map((elem, index) => (
+        {album.slice(1).map((elem) => (
           // <div key={ elem.trackId }>
           <MusicCard
-            key={ index }
+            key={ elem.trackId }
             trackId={ elem.trackId }
             trackName={ elem.trackName }
             previewUrl={ elem.previewUrl }
-            // favorites={ favorites }
+            favorites={ favoriteMusics }
+            checked={ favoriteMusics.some((item) => (item.trackId === elem.trackId)) }
             music={ elem }
           />
           // </div>

@@ -8,26 +8,55 @@ class MusicCard extends Component {
     super();
     this.state = {
       loading: false,
-      favorite: false,
+      checkedstate: false,
     };
   }
 
-  isChecked = async () => {
-    const { music } = this.props;
-    console.log(this.props, 'log do music');
+  componentDidMount = () => {
+    const { checked } = this.props;
     this.setState({
-      favorite: true,
-      loading: true,
-    });
-    const newsongs = await addSong(music);
-    console.log(newsongs, 'log do musics');
-    this.setState({
-      loading: false,
+      checkedstate: checked,
     });
   }
 
+  // isChecked = async (trackId) => {
+  //   const { music, savemusics } = this.props;
+  //   savemusics(trackId);
+  //   this.setState({
+  //     checkedstate: true,
+  //     loading: true,
+  //   });
+  //   await addSong(music);
+  //   // console.log(newsongs);
+  //   this.setState({
+  //     loading: false,
+  //   });
+  // }
+
+  isChecked = ({ target }) => {
+    const { checkedstate } = this.state;
+    this.setState({ checkedstate: !checkedstate });
+    this.favoriteMusic(target.id);
+    // ^Atualiza os checks das música de props para states e em seguida usa a função abaixo
+  }
+
+  favoriteMusic = async (id) => {
+    const { checkedstate } = this.state;
+    const { savemusics, music } = this.props;
+
+    this.setState({ loading: true });
+    if (!checkedstate) {
+      await addSong(music);
+      this.setState({ loading: false, checkedstate: true });
+    } else {
+      await removeSong(music);
+      this.setState({ loading: false, checkedstate: false });
+      if (typeof savemusics !== 'string') savemusics(id);
+    }
+  }
+
   render() {
-    const { loading, favorite } = this.state;
+    const { loading, checkedstate } = this.state;
     const { previewUrl, trackName, trackId } = this.props;
     return (
       <div>
@@ -47,8 +76,8 @@ class MusicCard extends Component {
             data-testid={ `checkbox-music-${trackId}` }
             type="checkbox"
             id={ trackId }
-            checked={ favorite }
-            onClick={ this.isChecked }
+            checked={ checkedstate }
+            onChange={ this.isChecked }
           />
         </label>
       </div>
@@ -60,7 +89,13 @@ MusicCard.propTypes = {
   previewUrl: PropTypes.string.isRequired,
   trackName: PropTypes.string.isRequired,
   trackId: PropTypes.number.isRequired,
-  music: PropTypes.arrayOf(PropTypes.shape).isRequired,
+  music: PropTypes.objectOf(PropTypes.shape).isRequired,
+  checked: PropTypes.bool.isRequired,
+  savemusics: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
+};
+
+MusicCard.defaultProps = {
+  savemusics: '',
 };
 
 export default MusicCard;

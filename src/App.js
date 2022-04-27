@@ -44,8 +44,6 @@ class App extends React.Component {
               { ...props }
               { ...this.state }
             />) }
-
-          // component={ Album }
           />
           <Route path="/favorites" component={ Favorites } />
           <Route exact path="/profile/edit" component={ ProfileEdit } />
