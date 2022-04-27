@@ -11,6 +11,7 @@ class Album extends Component {
       album: [],
       artistName: '',
       collectionName: '',
+      // favorites: [],
     };
   }
 
@@ -55,14 +56,17 @@ class Album extends Component {
         {/* criar um map para renderizar o que foi solicitado no requisito na tela */}
         <p data-testid="artist-name">{`${artistName}`}</p>
         <p data-testid="album-name">{`${collectionName}`}</p>
-        {album.slice(1).map((elem) => (
-          <div key={ elem.trackId }>
-            <MusicCard
-              key={ elem.trackId }
-              trackName={ elem.trackName }
-              previewUrl={ elem.previewUrl }
-            />
-          </div>
+        {album.slice(1).map((elem, index) => (
+          // <div key={ elem.trackId }>
+          <MusicCard
+            key={ index }
+            trackId={ elem.trackId }
+            trackName={ elem.trackName }
+            previewUrl={ elem.previewUrl }
+            // favorites={ favorites }
+            music={ elem }
+          />
+          // </div>
         ))}
       </div>);
   }
