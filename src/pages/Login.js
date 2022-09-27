@@ -6,7 +6,7 @@ import Loading from '../components/Loading';
 class Login extends Component {
   constructor() {
     super();
-
+    // aqui é a criação do state
     this.state = {
       loginNameInput: '',
       loading: false,
