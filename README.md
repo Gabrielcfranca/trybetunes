@@ -1,15 +1,18 @@
-### Features
+##Trybe Tunes – Music Player
 
-- Support Standard Markdown / CommonMark and GFM(GitHub Flavored Markdown);
-- Full-featured: Real-time Preview, Image (cross-domain) upload, Preformatted text/Code blocks/Tables insert, Code fold, Search replace, Read only, Themes, Multi-languages, L18n, HTML entities, Code syntax highlighting...;
-- Markdown Extras : Support ToC (Table of Contents), Emoji, Task lists, @Links...;
-- Compatible with all major browsers (IE8+), compatible Zepto.js and iPad;
-- Support identification, interpretation, fliter of the HTML tags;
-- Support TeX (LaTeX expressions, Based on KaTeX), Flowchart and Sequence Diagram of Markdown extended syntax;
-- Support AMD/CMD (Require.js & Sea.js) Module Loader, and Custom/define editor plugins;
+This front-end project was developed with React to practice API requests, searchs and states at [Trybe](https://www.betrybe.com/?utm_source=trybe.com.br).
 
-# Editor.md
+###Context
 
-![](https://pandao.github.io/editor.md/images/logos/editormd-logo-180x180.png)
+- This project is a Music Player and the user can:
+	- Sign in with your name to create your profile
+	- Search an artist to find musics and listen then
+	- Like musics to get access in your favorite page
 
-![](https://img.shields.io/github/stars/pandao/editor.md.svg) ![](https://img.shields.io/github/forks/pandao/editor.md.svg) ![](https://img.shields.io/github/tag/pandao/editor.md.svg) ![](https://img.shields.io/github/release/pandao/editor.md.svg) ![](https://img.shields.io/github/issues/pandao/editor.md.svg) ![](https://img.shields.io/bower/v/editor.md.svg)
+###Stacks
+
+React | React Lifecycle, State and props, CSS Modules
+
+###Lint
+The project was developed following the Clean Code standards specified by Trybe's Lint rules.
+For installation and more information [click here](https://github.com/betrybe/eslint-config-trybe).
